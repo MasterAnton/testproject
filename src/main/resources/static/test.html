@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+            name="description"
+            content="Web site created using create-react-app"
+    />
+    <title>Test</title>
+</head>
+<body>
+<div id="root">123</div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    function handleCredentialResponse(response) {
+        window.crd = response.credential;
+        console.log("Encoded JWT ID token: " + response.credential);
+    }
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: "*.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large" }  // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+    }
+</script>
+<div id="buttonDiv"></div>
+<div class="container unauthenticated">
+    <div>
+        With Google: <a href="/oauth2/authorization/google">click here</a>
+    </div>
+</div>
+</body>
+</html>
